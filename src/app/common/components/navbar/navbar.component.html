@@ -1,0 +1,48 @@
+<p [class.hide-navbar]="hideNavbar">
+  <mat-toolbar color="primary">
+    <button
+      mat-icon-button
+      (click)="openSideNav()"
+      class="example-icon"
+      aria-label="Example icon-button with menu icon"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+    <a [routerLink]="['/']">
+      <span class="logo"><mat-icon>book</mat-icon></span>
+      <span>Daemon Blade</span>
+    </a>
+
+    <span class="example-spacer"></span>
+
+    <button
+      mat-icon-button
+      class="example-icon"
+      aria-label="Example icon-button with share icon"
+    >
+      <mat-icon>search</mat-icon>
+    </button>
+
+    <!-- <button
+      mat-icon-button
+      (click)="toggleTheme()"
+      class="example-icon"
+      aria-label="Example icon-button with share icon"
+    >
+      <mat-icon *ngIf="!themeService.isDarkTheme">wb_sunny</mat-icon>
+      <mat-icon *ngIf="themeService.isDarkTheme">brightness_2</mat-icon>
+    </button> -->
+
+    <a [routerLink]="['/profile']">
+      <button
+        mat-icon-button
+        class="example-icon"
+        aria-label="Example icon-button with share icon"
+      >
+        <mat-icon matBadgeColor="accent">face</mat-icon>
+        <!-- <mat-icon matBadge="0" matBadgeColor="accent">face</mat-icon> -->
+      </button></a
+    >
+  </mat-toolbar>
+</p>
+<div class="br"></div>

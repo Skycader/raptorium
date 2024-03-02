@@ -1,0 +1,19 @@
+$color-blue: #83af9b;
+$color-green: #c8c8a9;
+$color-brown: #774f38;
+$color-beige: #ece5ce;
+$color-yellow: #f9cdad;
+$color-pink: #fe4365;
+$color-paper: #eeeeee;
+$color-surface: #1f1f1f;
+$color-surface2: #2d2f31;
+$color-red: #fa4a4a;
+
+html,
+body {
+  --text-color: rgba(0, 0, 0, 0.5411764706);
+}
+
+.dark-theme {
+  --text-color: white;
+}

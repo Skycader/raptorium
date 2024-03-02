@@ -1,0 +1,49 @@
+.example-card {
+  max-width: 400px;
+  min-width: 400px;
+}
+
+.example-header-image {
+  background-size: cover;
+}
+
+.background {
+  max-height: 298px;
+  height: 298px;
+  background-size: cover;
+  cursor: pointer;
+}
+
+.mat-mdc-card-subtitle {
+  margin-bottom: 5px;
+}
+
+p {
+  padding-top: 5px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 28px;
+  margin: 0 0 24px;
+}
+
+button {
+  margin-right: 5px;
+}
+
+mat-card {
+  height: 445px;
+}
+
+mat-card-actions {
+  margin-top: auto;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}

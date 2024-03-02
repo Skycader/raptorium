@@ -1,0 +1,30 @@
+<div class="container">
+  <br />
+  <div class="level-container">
+    <div class="h1">Level</div>
+    <button style="margin: 10px" class="btn btn-primary">40</button>
+  </div>
+  <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+
+  <br />
+  <br />
+  <br />
+  <div class="level-container daemon" [class]="daemonDo">
+    <app-daemon
+      [config]="currentDaemonConfig"
+      *ngIf="bt.task"
+      (status)="checkStatus($event)"
+    />
+  </div>
+
+  <div class="level-container">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="start()"
+      *ngIf="!bt.task"
+    >
+      Enter Dangeon
+    </button>
+  </div>
+</div>

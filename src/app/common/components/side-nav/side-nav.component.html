@@ -1,0 +1,63 @@
+<div
+  class="side-nav-background"
+  (click)="closeSideNav()"
+  *ngIf="isSideNav"
+></div>
+<div class="side-nav" [class.closed]="!isSideNav">
+  <mat-toolbar color="secondary">
+    <mat-toolbar-row class="navigation">
+      <span>Navigation</span>
+
+      <div>
+        <button
+          mat-icon-button
+          (click)="toggleTheme()"
+          class="example-icon"
+          aria-label="Example icon-button with share icon"
+        >
+          <mat-icon *ngIf="!themeService.isDarkTheme">wb_sunny</mat-icon>
+          <mat-icon *ngIf="themeService.isDarkTheme">brightness_2</mat-icon>
+        </button>
+
+        <button
+          mat-icon-button
+          class="example-icon"
+          (click)="closeSideNav()"
+          aria-label="Example icon-button with share icon"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div class="side-nav-content bg-body">
+    <mat-list *ngFor="let list of lists">
+      @for (topic of list.topic; track topic) {
+        <mat-list-item>
+          <mat-icon matListItemIcon>book</mat-icon>
+          <div matListItemTitle>{{ topic.name }}</div>
+        </mat-list-item>
+      }
+      <!--<mat-divider></mat-divider>-->
+      @for (article of list.articles; track article) {
+        <mat-list-item
+          class="article"
+          mat-ripple
+          (click)="closeSideNav()"
+          [routerLink]="['article', article.route]"
+        >
+          <mat-icon matListItemIcon>label</mat-icon>
+
+          <mat-icon matListItemIcon>description</mat-icon>
+
+          <div matListItemTitle>
+            {{ article.name }}
+          </div>
+        </mat-list-item>
+      }
+
+      <mat-divider></mat-divider>
+    </mat-list>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+.side-nav-background {
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  position: fixed;
+  top: 0px;
+}
+.side-nav {
+  width: 80%;
+  height: 100vh;
+  position: fixed;
+  top: 0px;
+  transition-duration: 0.3s;
+  z-index: 2000;
+  left: 0px;
+  max-width: 300px;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+}
+
+.closed {
+  left: calc(-300px);
+}
+
+.side-nav-content {
+  width: 100%;
+  height: 100%;
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
+}
+mat-list {
+  overflow: hidden;
+}
+.article {
+  margin-left: 10px;
+  transition-duration: 0.3s;
+  cursor: pointer !important;
+  transform: translateX(-50px);
+}
+
+.article:hover {
+  margin-left: 10px;
+  cursor: pointer !important;
+  transform: translateX(0px);
+}
+
+.side-nav-footer {
+  position: absolute;
+  bottom: 0px;
+}
