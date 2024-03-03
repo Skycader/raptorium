@@ -5,7 +5,10 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build-for-git": "ng build --base-href 'https://skycader.github.io/raptorium/'",
+    "upload": "npx angular-cli-ghpages --dir=dist/raptorium/browser",
     "watch": "ng build --watch --configuration development",
+    "deploy": "yarn build-for-git && yarn upload",
     "test": "ng test"
   },
   "private": true,
