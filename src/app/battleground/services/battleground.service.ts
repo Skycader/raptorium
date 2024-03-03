@@ -24,33 +24,30 @@ export class BattlegroundService {
     return obj[rk];
   }
 
-  /**
-   * 1: `typeof {{option}}`
-   * 30: {{prefix}} {{option}} {{operator}} {{prefix}} {{option}}
-   * */
-
   private dict: any = {
-    1: () => `typeof ${this.take(this.ds.vars)}`,
-    2: () =>
-      `${this.take(this.ds.mods)}${this.take(this.ds.vars)}${this.take(
-        this.ds.oprs,
-      )}${this.take(this.ds.mods)}${this.take(this.ds.vars)}`,
-    3: () => `${this.take(this.ds.func)}(${this.take(this.ds.vars)})`,
-    4: () =>
-      `${this.take(this.ds.mods)}${this.take(this.ds.vars)}${this.take(
-        this.ds.oprs,
-      )}${this.take(this.ds.mods)}${this.take(this.ds.vars)}${this.take(
-        this.ds.oprs,
-      )}${this.take(this.ds.mods)}${this.take(this.ds.vars)}`,
-    5: () =>
-      `${this.take(this.ds.mods)}${this.take(this.ds.vars)}${this.take(
-        this.ds.oprs,
-      )}${this.take(this.ds.mods)}${this.take(this.ds.vars)}${this.take(
-        this.ds.oprs,
-      )}${this.take(this.ds.mods)}${this.take(this.ds.vars)}${this.take(
-        this.ds.oprs,
-      )}${this.take(this.ds.mods)}${this.take(this.ds.vars)}`,
+    1: `typeof {{option}}`,
+    2: `{{prefix}}{{option}}{{operator}}{{prefix}}{{option}}`,
+    3: `{{func}}({{option}})`,
+    4: `{{prefix}}{{option}}{{operator}}{{prefix}}{{option}}{{operator}}{{prefix}}{{option}}`,
+    5: `{{prefix}}{{option}}{{operator}}{{prefix}}{{func}}({{option}}){{operator}}{{prefix}}{{option}}{{operator}}{{prefix}}{{option}}`,
   };
+
+  private dict2: any = {
+    '{{option}}': () => this.take.bind(this, this.ds.vars),
+    '{{prefix}}': () => this.take.bind(this, this.ds.mods),
+    '{{operator}}': () => this.take.bind(this, this.ds.oprs),
+    '{{func}}': () => this.take.bind(this, this.ds.func),
+  };
+
+  public readSentence(sentence: string) {
+    console.log(sentence);
+    let task = sentence
+      .replaceAll('{{option}}', this.dict2['{{option}}']())
+      .replaceAll('{{prefix}}', this.dict2['{{prefix}}']())
+      .replaceAll('{{operator}}', this.dict2['{{operator}}']())
+      .replaceAll('{{func}}', this.dict2['{{func}}']());
+    return task;
+  }
 
   public randomIntFromInterval(min: number, max: number) {
     // min and max included
@@ -58,7 +55,7 @@ export class BattlegroundService {
   }
 
   public render() {
-    this.task = this.dict[this.difficulty]();
+    this.task = this.readSentence(this.dict[this.difficulty]);
     try {
       this.solution = this.parse(this.task);
       if (this.solution.length > 15) this.render();
