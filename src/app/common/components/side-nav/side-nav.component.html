@@ -44,8 +44,8 @@
         <mat-list-item
           class="article"
           mat-ripple
-          (click)="closeSideNav()"
-          [routerLink]="['article', article.route]"
+          (click)="closeSideNav(article.route)"
+          [routerLink]="[article.route]"
         >
           <mat-icon matListItemIcon>label</mat-icon>
 

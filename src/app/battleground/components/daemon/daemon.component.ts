@@ -21,12 +21,24 @@ export class DaemonComponent {
   };
 
   public input: string = '';
+  public blocked = false;
   public checkForCorrectAnswer(event: any) {
-    if (event.target.value.toLowerCase() === this.config.solution) {
+    if (this.blocked) return;
+    this.blocked = true;
+    if (
+      event.target.value.toLowerCase() ===
+      this.config.solution.toString().toLowerCase()
+    ) {
       this.status.emit(true);
       this.input = '';
     } else {
+      alert('Wrong, correct answer is ' + this.config.solution);
       this.status.emit(false);
+      this.input = '';
     }
+
+    setTimeout(() => {
+      this.blocked = false;
+    }, 2000);
   }
 }

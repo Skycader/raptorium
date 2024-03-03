@@ -2,14 +2,11 @@
   <br />
   <div class="level-container">
     <div class="h1">Level</div>
-    <button style="margin: 10px" class="btn btn-primary">40</button>
+    <button style="margin: 10px" class="btn btn-primary">{{ level }}</button>
   </div>
-  <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+  <mat-progress-bar mode="determinate" [value]="experience"></mat-progress-bar>
 
-  <br />
-  <br />
-  <br />
-  <div class="level-container daemon" [class]="daemonDo">
+  <div class="level-container daemon col-12" [class]="daemonDo">
     <app-daemon
       [config]="currentDaemonConfig"
       *ngIf="bt.task"

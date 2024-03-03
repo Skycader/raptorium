@@ -9,6 +9,9 @@ export class BattlegroundService {
   public solution: string = '';
   public difficulty: number = 1;
 
+  public setDifficulty(num: number) {
+    this.difficulty = num;
+  }
   private ds = new Dictionaries();
 
   public parse(str: string) {
@@ -28,18 +31,18 @@ export class BattlegroundService {
 
   private dict: any = {
     1: () => `typeof ${this.take(this.ds.vars)}`,
-    30: () =>
+    2: () =>
       `${this.take(this.ds.mods)}${this.take(this.ds.vars)}${this.take(
         this.ds.oprs,
       )}${this.take(this.ds.mods)}${this.take(this.ds.vars)}`,
-    50: () => `${this.take(this.ds.func)}(${this.take(this.ds.vars)})`,
-    70: () =>
+    3: () => `${this.take(this.ds.func)}(${this.take(this.ds.vars)})`,
+    4: () =>
       `${this.take(this.ds.mods)}${this.take(this.ds.vars)}${this.take(
         this.ds.oprs,
       )}${this.take(this.ds.mods)}${this.take(this.ds.vars)}${this.take(
         this.ds.oprs,
       )}${this.take(this.ds.mods)}${this.take(this.ds.vars)}`,
-    80: () =>
+    5: () =>
       `${this.take(this.ds.mods)}${this.take(this.ds.vars)}${this.take(
         this.ds.oprs,
       )}${this.take(this.ds.mods)}${this.take(this.ds.vars)}${this.take(
@@ -49,10 +52,16 @@ export class BattlegroundService {
       )}${this.take(this.ds.mods)}${this.take(this.ds.vars)}`,
   };
 
+  public randomIntFromInterval(min: number, max: number) {
+    // min and max included
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
   public render() {
     this.task = this.dict[this.difficulty]();
     try {
       this.solution = this.parse(this.task);
+      if (this.solution.length > 15) this.render();
     } catch (e) {
       this.render();
     }

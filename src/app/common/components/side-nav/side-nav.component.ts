@@ -31,30 +31,14 @@ export class SideNavComponent {
     {
       topic: [
         {
-          name: 'Основная',
+          name: 'How to kill daemons',
         },
       ],
       articles: [
         {
-          name: 'О нас',
-          route: 'about',
-        },
-      ],
-    },
-    {
-      topic: [
-        {
-          name: 'Услуги',
-        },
-      ],
-      articles: [
-        {
-          name: 'Мощение дорожек и площадок',
-          route: 'moshchenie-dorozhek',
-        },
-        {
-          name: 'Дренаж и система водоотведения',
-          route: 'drenazh-i-sistema-vodootvedeniya',
+          name: 'Learn about priority',
+          route:
+            'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_precedence',
         },
       ],
     },
@@ -75,7 +59,8 @@ export class SideNavComponent {
     public readonly themeService: ThemeService,
   ) { }
 
-  public closeSideNav() {
+  public closeSideNav(link: string = '') {
+    if (link) window.location.href = link;
     this.navbarService.closeSideNav();
   }
 
