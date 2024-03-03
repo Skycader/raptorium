@@ -18,7 +18,8 @@ export class BattlegroundComponent {
     };
     this.level = Number(localStorage.getItem('level')) || 1;
     this.experience = Number(localStorage.getItem('experience')) || 0;
-    this.bt.setDifficulty(this.level);
+    let lvl = this.level > 5 ? 5 : this.level;
+    this.bt.setDifficulty(lvl);
     this.start();
   }
   public start() {
@@ -43,7 +44,9 @@ export class BattlegroundComponent {
   ];
   public generateDaemon(title: string, solution: string, level: number) {
     const pic = (this.difficultyLevels as any).random();
-    this.bt.setDifficulty(this.level);
+    let difficulty = this.level;
+    if (difficulty > 5) difficulty = 5;
+    this.bt.setDifficulty(difficulty);
     return {
       title,
       subheader: level + ' level daemon',
