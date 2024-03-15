@@ -4,6 +4,8 @@ export class MainDictionaryClass {
     '{{eventLoop}}': ['{{setTimeout}}', '{{promise}}', '{{eventLoop}}'],
     '{{promise}}': [
       'new Promise((resolve, reject) => { {{promiseBody}}}).then({{promiseThen}})',
+      'console.log({{implicitBody}}); {{eventLoop}};',
+      'console.log({{implicitBody}}); {{eventLoop}}; {{eventLoop}}',
     ],
     '{{promiseBody}}': [
       'resolve({{implicitBody}})',

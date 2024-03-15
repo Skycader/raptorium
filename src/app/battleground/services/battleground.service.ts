@@ -77,6 +77,7 @@ export class BattlegroundService {
 
       prettier
         .format(a, {
+          printWidth: 50,
           parser: 'babel',
           plugins: [parserBabel, prettierPluginEstree],
         })
