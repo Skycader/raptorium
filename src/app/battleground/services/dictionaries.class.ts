@@ -52,4 +52,17 @@ export class Dictionaries {
     1: 'Boolean',
     2: 'String',
   };
+
+  public eventLoop = {
+    0: 'new Promise((resolve,reject) => { {{body}} }).then({{body}})',
+    1: 'setTimeout(() => { {{body}},0)',
+  };
+
+  public promiseBody = {
+    0: 'resolve(6)',
+  };
+
+  public promiseThen = {
+    0: '(result) => console.log(result)',
+  };
 }
