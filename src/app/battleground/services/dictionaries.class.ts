@@ -54,15 +54,24 @@ export class Dictionaries {
   };
 
   public eventLoop = {
-    0: 'new Promise((resolve,reject) => { {{body}} }).then({{body}})',
-    1: 'setTimeout(() => { {{body}},0)',
+    // 0: 'new Promise((resolve,reject) => { {{promiseBody}} }).then({{eventLoop}})',
+    // 1: 'new Promise((resolve,reject) => { {{eventLoop}} }).then({{promiseThen}})',
+    // 2: 'setTimeout(() => { {{eventLoop}},0)',
+    0: 'setTimeout(() => { {{timeOut}},0)',
   };
 
   public promiseBody = {
     0: 'resolve(6)',
+    1: 'console.log(22)',
+    2: 'console.log(33)\nresolve(11)',
   };
 
   public promiseThen = {
     0: '(result) => console.log(result)',
+    1: '{{eventLoop}}',
+  };
+
+  public timeOut = {
+    0: 'console.log(123)',
   };
 }

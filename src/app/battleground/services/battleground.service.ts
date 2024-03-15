@@ -25,11 +25,12 @@ export class BattlegroundService {
   }
 
   private dict: any = {
-    1: `typeof {{option}}`,
-    2: `{{prefix}}{{option}}{{operator}}{{prefix}}{{option}}`,
-    3: `{{func}}({{option}})`,
-    4: `{{prefix}}{{option}}{{operator}}{{prefix}}{{option}}{{operator}}{{prefix}}{{option}}`,
-    5: `{{prefix}}{{option}}{{operator}}{{prefix}}{{func}}({{option}}){{operator}}{{prefix}}{{option}}{{operator}}{{prefix}}{{option}}`,
+    // 1: `typeof {{option}}`,
+    // 2: `{{prefix}}{{option}}{{operator}}{{prefix}}{{option}}`,
+    // 3: `{{func}}({{option}})`,
+    // 4: `{{prefix}}{{option}}{{operator}}{{prefix}}{{option}}{{operator}}{{prefix}}{{option}}`,
+    // 5: `{{prefix}}{{option}}{{operator}}{{prefix}}{{func}}({{option}}){{operator}}{{prefix}}{{option}}{{operator}}{{prefix}}{{option}}`,
+    1: `{{eventLoop}}`,
   };
 
   private dict2: any = {
@@ -37,6 +38,10 @@ export class BattlegroundService {
     '{{prefix}}': () => this.take.bind(this, this.ds.mods),
     '{{operator}}': () => this.take.bind(this, this.ds.oprs),
     '{{func}}': () => this.take.bind(this, this.ds.func),
+    '{{eventLoop}}': () => this.take.bind(this, this.ds.eventLoop),
+    '{{promiseBody}}': () => this.take.bind(this, this.ds.promiseBody),
+    '{{promiseThen}}': () => this.take.bind(this, this.ds.promiseThen),
+    '{{timeOut}}': () => this.take.bind(this, this.ds.timeOut),
   };
 
   public readSentence(sentence: string) {
@@ -45,7 +50,8 @@ export class BattlegroundService {
       .replaceAll('{{option}}', this.dict2['{{option}}']())
       .replaceAll('{{prefix}}', this.dict2['{{prefix}}']())
       .replaceAll('{{operator}}', this.dict2['{{operator}}']())
-      .replaceAll('{{func}}', this.dict2['{{func}}']());
+      .replaceAll('{{func}}', this.dict2['{{func}}']())
+      .replaceAll('{{eventLoop}}', this.dict2['{{timeOut}}']());
     return task;
   }
 
