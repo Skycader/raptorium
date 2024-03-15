@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Dictionaries } from './dictionaries.class';
+import { TranspilerService } from '../../transpiler/services/transpiler.service';
+import { MainDictionaryClass } from './main.dictionary';
+import * as prettier from 'prettier';
+import parserBabel from 'prettier/plugins/babel';
+import * as prettierPluginEstree from 'prettier/plugins/estree';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +13,8 @@ export class BattlegroundService {
   public task: string = '';
   public solution: string = '';
   public difficulty: number = 1;
-
+  public mainDictionary = new MainDictionaryClass().dictionary;
+  constructor(private transliper: TranspilerService) {}
   public setDifficulty(num: number) {
     this.difficulty = num;
   }
@@ -25,12 +31,12 @@ export class BattlegroundService {
   }
 
   private dict: any = {
-    // 1: `typeof {{option}}`,
-    // 2: `{{prefix}}{{option}}{{operator}}{{prefix}}{{option}}`,
-    // 3: `{{func}}({{option}})`,
-    // 4: `{{prefix}}{{option}}{{operator}}{{prefix}}{{option}}{{operator}}{{prefix}}{{option}}`,
-    // 5: `{{prefix}}{{option}}{{operator}}{{prefix}}{{func}}({{option}}){{operator}}{{prefix}}{{option}}{{operator}}{{prefix}}{{option}}`,
-    1: `{{eventLoop}}`,
+    1: `typeof {{option}}`,
+    2: `{{prefix}}{{option}}{{operator}}{{prefix}}{{option}}`,
+    3: `{{func}}({{option}})`,
+    4: `{{prefix}}{{option}}{{operator}}{{prefix}}{{option}}{{operator}}{{prefix}}{{option}}`,
+    5: `{{prefix}}{{option}}{{operator}}{{prefix}}{{func}}({{option}}){{operator}}{{prefix}}{{option}}{{operator}}{{prefix}}{{option}}`,
+    6: `{{prefix}}{{option}}{{operator}}{{prefix}}{{func}}({{option}}){{operator}}{{prefix}}{{option}}{{operator}}{{prefix}}{{option}}{{prefix}}{{option}}{{operator}}{{prefix}}{{func}}({{option}}){{operator}}{{prefix}}{{option}}{{operator}}{{prefix}}{{option}}`,
   };
 
   private dict2: any = {
@@ -38,10 +44,6 @@ export class BattlegroundService {
     '{{prefix}}': () => this.take.bind(this, this.ds.mods),
     '{{operator}}': () => this.take.bind(this, this.ds.oprs),
     '{{func}}': () => this.take.bind(this, this.ds.func),
-    '{{eventLoop}}': () => this.take.bind(this, this.ds.eventLoop),
-    '{{promiseBody}}': () => this.take.bind(this, this.ds.promiseBody),
-    '{{promiseThen}}': () => this.take.bind(this, this.ds.promiseThen),
-    '{{timeOut}}': () => this.take.bind(this, this.ds.timeOut),
   };
 
   public readSentence(sentence: string) {
@@ -50,8 +52,7 @@ export class BattlegroundService {
       .replaceAll('{{option}}', this.dict2['{{option}}']())
       .replaceAll('{{prefix}}', this.dict2['{{prefix}}']())
       .replaceAll('{{operator}}', this.dict2['{{operator}}']())
-      .replaceAll('{{func}}', this.dict2['{{func}}']())
-      .replaceAll('{{eventLoop}}', this.dict2['{{timeOut}}']());
+      .replaceAll('{{func}}', this.dict2['{{func}}']());
     return task;
   }
 
@@ -61,10 +62,29 @@ export class BattlegroundService {
   }
 
   public render() {
-    this.task = this.readSentence(this.dict[this.difficulty]);
+    /*this.task = this.readSentence(this.dict[this.difficulty]);
     try {
       this.solution = this.parse(this.task);
       if (this.solution.length > 15) this.render();
+    } catch (e) {
+      this.render();
+    }
+
+    */
+
+    try {
+      let a = this.transliper.transpile('{{start}}', this.mainDictionary);
+
+      prettier
+        .format(a, {
+          parser: 'babel',
+          plugins: [parserBabel, prettierPluginEstree],
+        })
+        .then((res: any) => {
+          this.solution = this.parse(res);
+          (window as any).solution = this.solution;
+          this.task = res;
+        });
     } catch (e) {
       this.render();
     }

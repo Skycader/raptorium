@@ -5,7 +5,9 @@
       [style.background-image]="'url(' + config.avatarSrc + ')'"
       class="example-header-image"
     ></div>
-    <mat-card-title>{{ config.title }}</mat-card-title>
+    <mat-card-title>
+      <pre>{{ config.title }}</pre>
+    </mat-card-title>
     <mat-card-subtitle>{{ config.subheader }} </mat-card-subtitle>
   </mat-card-header>
   <div

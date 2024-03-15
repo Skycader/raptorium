@@ -11,9 +11,9 @@ import { Observable, delay, interval, of, tap } from 'rxjs';
 export class BattlegroundComponent {
   public level: number = 1;
   public experience: number = 0;
-  constructor(public bt: BattlegroundService) { }
+  constructor(public bt: BattlegroundService) {}
   ngOnInit() {
-    (Array.prototype as any).random = function() {
+    (Array.prototype as any).random = function () {
       return this[Math.floor(Math.random() * this.length)];
     };
     this.level = Number(localStorage.getItem('level')) || 1;
@@ -26,11 +26,18 @@ export class BattlegroundComponent {
     localStorage.setItem('level', this.level.toString());
     localStorage.setItem('experience', this.experience.toString());
     this.bt.render();
-    this.currentDaemonConfig = this.generateDaemon(
-      this.bt.task,
-      this.bt.solution,
-      this.level,
-    );
+
+    setTimeout(() => {
+      this.currentDaemonConfig = this.generateDaemon(
+        this.bt.task,
+        this.bt.solution,
+        this.level,
+      );
+
+      if (this.currentDaemonConfig === undefined) {
+        this.start();
+      }
+    });
   }
 
   public currentDaemonConfig!: CardConfigInterface;
