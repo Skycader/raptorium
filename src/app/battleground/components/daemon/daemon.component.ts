@@ -20,6 +20,8 @@ export class DaemonComponent {
     solution: '',
   };
 
+  ngOnInit() {}
+
   public input: string = '';
   public blocked = false;
   public checkForCorrectAnswer(event: any) {
@@ -33,8 +35,8 @@ export class DaemonComponent {
       this.input = '';
     } else {
       alert('Wrong, correct answer is ' + this.config.solution);
-      this.status.emit(false);
-      this.input = '';
+      //this.status.emit(false);
+      //this.input = '';
     }
 
     setTimeout(() => {

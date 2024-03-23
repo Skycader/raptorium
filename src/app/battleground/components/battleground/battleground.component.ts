@@ -18,7 +18,7 @@ export class BattlegroundComponent {
     };
     this.level = Number(localStorage.getItem('level')) || 1;
     this.experience = Number(localStorage.getItem('experience')) || 0;
-    let lvl = this.level > 5 ? 5 : this.level;
+    let lvl = this.level > 4 ? 4 : this.level;
     this.bt.setDifficulty(lvl);
     this.start();
   }
@@ -28,6 +28,16 @@ export class BattlegroundComponent {
     this.bt.render();
 
     setTimeout(() => {
+      if (this.bt.solution === '') {
+        console.warn('error detected', this.bt.task);
+        this.start();
+      }
+
+      if (this.bt.task.length > 50) {
+        console.warn('error detected', this.bt.task);
+        this.start();
+      }
+
       this.currentDaemonConfig = this.generateDaemon(
         this.bt.task,
         this.bt.solution,
@@ -35,6 +45,8 @@ export class BattlegroundComponent {
       );
 
       if (this.currentDaemonConfig === undefined) {
+        console.warn('error detected', this.bt.task);
+
         this.start();
       }
     });
@@ -68,7 +80,6 @@ export class BattlegroundComponent {
   public checkStatus(event: Boolean) {
     if (this.blocked) return;
     this.blocked = true;
-    console.log(event);
     if (event === true) {
       this.experience += this.bt.difficulty * 10;
 

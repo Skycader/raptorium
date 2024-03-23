@@ -1,4 +1,4 @@
-<mat-card class="example-card">
+<mat-card class="example-card" *ngIf="config">
   <mat-card-header>
     <div
       mat-card-avatar
@@ -6,7 +6,7 @@
       class="example-header-image"
     ></div>
     <mat-card-title>
-      <pre>{{ config.title }}</pre>
+      <div>{{ config.title }}</div>
     </mat-card-title>
     <mat-card-subtitle>{{ config.subheader }} </mat-card-subtitle>
   </mat-card-header>

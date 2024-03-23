@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Dictionaries } from './dictionaries.class';
 import { TranspilerService } from '../../transpiler/services/transpiler.service';
 import { MainDictionaryClass } from './main.dictionary';
 import * as prettier from 'prettier';
@@ -18,7 +17,6 @@ export class BattlegroundService {
   public setDifficulty(num: number) {
     this.difficulty = num;
   }
-  private ds = new Dictionaries();
 
   public parse(str: string) {
     return new Function('', `return ${str}`)();
@@ -30,64 +28,25 @@ export class BattlegroundService {
     return obj[rk];
   }
 
-  private dict: any = {
-    1: `typeof {{option}}`,
-    2: `{{prefix}}{{option}}{{operator}}{{prefix}}{{option}}`,
-    3: `{{func}}({{option}})`,
-    4: `{{prefix}}{{option}}{{operator}}{{prefix}}{{option}}{{operator}}{{prefix}}{{option}}`,
-    5: `{{prefix}}{{option}}{{operator}}{{prefix}}{{func}}({{option}}){{operator}}{{prefix}}{{option}}{{operator}}{{prefix}}{{option}}`,
-    6: `{{prefix}}{{option}}{{operator}}{{prefix}}{{func}}({{option}}){{operator}}{{prefix}}{{option}}{{operator}}{{prefix}}{{option}}{{prefix}}{{option}}{{operator}}{{prefix}}{{func}}({{option}}){{operator}}{{prefix}}{{option}}{{operator}}{{prefix}}{{option}}`,
-  };
-
-  private dict2: any = {
-    '{{option}}': () => this.take.bind(this, this.ds.vars),
-    '{{prefix}}': () => this.take.bind(this, this.ds.mods),
-    '{{operator}}': () => this.take.bind(this, this.ds.oprs),
-    '{{func}}': () => this.take.bind(this, this.ds.func),
-  };
-
-  public readSentence(sentence: string) {
-    console.log(sentence);
-    let task = sentence
-      .replaceAll('{{option}}', this.dict2['{{option}}']())
-      .replaceAll('{{prefix}}', this.dict2['{{prefix}}']())
-      .replaceAll('{{operator}}', this.dict2['{{operator}}']())
-      .replaceAll('{{func}}', this.dict2['{{func}}']());
-    return task;
-  }
-
   public randomIntFromInterval(min: number, max: number) {
-    // min and max included
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
   public render() {
-    /*this.task = this.readSentence(this.dict[this.difficulty]);
-    try {
-      this.solution = this.parse(this.task);
-      if (this.solution.length > 15) this.render();
-    } catch (e) {
-      this.render();
-    }
+    let formattedTask = this.transliper.transpile(
+      `{{level${this.difficulty}}}`,
+      this.mainDictionary,
+    );
 
-    */
-
-    try {
-      let a = this.transliper.transpile('{{start}}', this.mainDictionary);
-
-      prettier
-        .format(a, {
-          printWidth: 50,
-          parser: 'babel',
-          plugins: [parserBabel, prettierPluginEstree],
-        })
-        .then((res: any) => {
-          this.solution = this.parse(res);
-          (window as any).solution = this.solution;
-          this.task = res;
-        });
-    } catch (e) {
-      this.render();
-    }
+    prettier
+      .format(formattedTask, {
+        printWidth: 50,
+        parser: 'babel',
+        plugins: [parserBabel, prettierPluginEstree],
+      })
+      .then((res: string) => {
+        this.solution = this.parse(res);
+        this.task = res;
+      });
   }
 }

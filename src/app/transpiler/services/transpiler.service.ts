@@ -10,9 +10,12 @@ export class TranspilerService {
     };
   }
 
+  public ongoing = 0;
   public transpile(input: string, dict: any) {
     let result = input;
-    while (result.includes('{{')) {
+    while (result.includes('{{') && this.ongoing < 4000) {
+      this.ongoing += 1;
+      console.log('ongoing', this.ongoing, result);
       result = this.process(result, dict);
     }
 

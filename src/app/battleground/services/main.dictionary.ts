@@ -1,42 +1,68 @@
 export class MainDictionaryClass {
   public dictionary = {
-    '{{start}}': ['{{eventLoop}}', '{{implicit1}}', '{{implicit2}}'],
+    '{{start}}': [
+      '{{implicit1}}',
+      '{{implicit2}}',
+      '{{implicit3}}',
+      '{{implicit4}}',
+    ], //'{{eventLoop}}',
+    '{{level1}}': ['{{implicit1}}'],
+    '{{level2}}': ['{{implicit2}}'],
+    '{{level3}}': ['{{implicit3}}'],
+    '{{level4}}': ['{{implicit4}}'],
     '{{eventLoop}}': ['{{setTimeout}}', '{{promise}}', '{{eventLoop}}'],
     '{{promise}}': [
       'new Promise((resolve, reject) => { {{promiseBody}}}).then({{promiseThen}})',
-      'console.log({{implicitBody}}); {{eventLoop}};',
-      'console.log({{implicitBody}}); {{eventLoop}}; {{eventLoop}}',
+      'console.log({{value}}); {{eventLoop}};',
+      'console.log({{value}}); {{eventLoop}}; {{eventLoop}}',
     ],
     '{{promiseBody}}': [
-      'resolve({{implicitBody}})',
-      'console.warn({{implicitBody}})',
+      'resolve({{value}})',
+      'console.log({{value}})',
       '{{setTimeout}}',
       '{{promise}}',
     ],
     '{{promiseThen}}': [
-      '(result) => console.warn(result)',
+      '(result) => console.log(result)',
       '{{setTimeout}}',
       '{{promise}}',
     ],
     '{{setTimeout}}': ['setTimeout(()=>{{setTimeoutBody}},0)'],
-    '{{setTimeoutBody}}': ['console.warn({{implicitBody}})'],
-    '{{implicit1}}': ['typeof {{implicitBody}}'],
-    '{{implicitBody}}': [
+    '{{setTimeoutBody}}': ['console.log({{value}})'],
+    '{{implicit1}}': ['typeof {{value}}', '{{func}}({{value}})'],
+    '{{value}}': [
       '3.14',
       '{a:0}',
+      '[1,2]',
+      '[]',
+      'new Array(5)',
       'true',
       'false',
       'undefined',
       'null',
       '0',
       '{}',
-      '"skycader"',
+      '"str"',
+      'new Date()',
     ],
 
     '{{implicit2}}': [
-      '{{prefix}}{{implicitBody}}{{operator}}{{prefix}}{{implicitBody}}',
+      '{{prefix}}{{value}}{{operator}}{{prefix}}{{value}}',
+      '{{func}}({{prefix}}{{value}}{{operator}}{{prefix}}{{value}})',
     ],
+
+    '{{implicit3}}': [
+      '{{prefix}}{{value}}{{operator}}{{prefix}}{{value}}{{operator}}{{prefix}}{{value}}',
+      '{{func}}({{prefix}}{{value}}{{operator}}{{prefix}}{{value}}{{operator}}{{prefix}}{{value}})',
+    ],
+
+    '{{implicit4}}': [
+      '{{prefix}}{{value}}{{operator}}{{prefix}}{{func}}({{value}}){{operator}}{{prefix}}{{value}}{{operator}}{{prefix}}{{value}}',
+      '{{func}}({{prefix}}{{value}}{{operator}}{{prefix}}{{func}}({{value}}){{operator}}{{prefix}}{{value}}{{operator}}{{prefix}}{{value}})',
+    ],
+
     '{{prefix}}': ['+', '!!', '!', '-', ' + ', '', 'typeof '],
-    '{{operator}}': ['+', '-', '*', '/'],
+    '{{operator}}': ['+', '-', '*', '/', '&&', '||'],
+    '{{func}}': ['Number', 'Boolean', 'String'],
   };
 }
