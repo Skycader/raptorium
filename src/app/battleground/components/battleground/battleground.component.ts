@@ -33,7 +33,7 @@ export class BattlegroundComponent {
         this.start();
       }
 
-      if (this.bt.task.length > 50) {
+      if (this.bt.task.length > 100) {
         console.warn('error detected', this.bt.task);
         this.start();
       }
