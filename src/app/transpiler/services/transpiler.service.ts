@@ -15,7 +15,7 @@ export class TranspilerService {
     let result = input;
     while (result.includes('{{') && this.ongoing < 4000) {
       this.ongoing += 1;
-      console.log('ongoing', this.ongoing, result);
+      //console.log('ongoing', this.ongoing, result);
       result = this.process(result, dict);
     }
 
