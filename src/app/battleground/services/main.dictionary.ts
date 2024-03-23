@@ -43,7 +43,7 @@ export class MainDictionaryClass {
       '0',
       '{}',
       '"str"',
-      'new Date()',
+      'new Date(0)',
     ],
 
     '{{implicit2}}': [
