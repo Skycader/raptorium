@@ -19,6 +19,10 @@ export class BattlegroundComponent {
     this.level = Number(localStorage.getItem('level')) || 1;
     this.experience = Number(localStorage.getItem('experience')) || 0;
     let lvl = this.level > 4 ? 4 : this.level;
+    this.level = lvl;
+    localStorage.setItem('level', lvl.toString());
+    console.log('setting', lvl);
+
     this.bt.setDifficulty(lvl);
     this.start();
   }
@@ -65,6 +69,8 @@ export class BattlegroundComponent {
     const pic = (this.difficultyLevels as any).random();
     let difficulty = this.level;
     if (difficulty > 5) difficulty = 5;
+
+    if (this.level > 4) this.level = 4;
     this.bt.setDifficulty(difficulty);
     return {
       title,
