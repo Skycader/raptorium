@@ -13,7 +13,7 @@ export class BattlegroundService {
   public solution: string = '';
   public difficulty: number = 1;
   public mainDictionary = new MainDictionaryClass().dictionary;
-  constructor(private transliper: TranspilerService) {}
+  constructor(private transliper: TranspilerService) { }
   public setDifficulty(num: number) {
     this.difficulty = num;
   }
@@ -37,6 +37,13 @@ export class BattlegroundService {
       `{{level${this.difficulty}}}`,
       this.mainDictionary,
     );
+
+    try {
+      this.parse(formattedTask);
+    } catch (e) {
+      this.render();
+      return;
+    }
 
     prettier
       .format(formattedTask, {
