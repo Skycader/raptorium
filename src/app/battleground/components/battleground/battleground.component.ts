@@ -59,11 +59,11 @@ export class BattlegroundComponent {
   public currentDaemonConfig!: CardConfigInterface;
 
   public difficultyLevels = [
-    'https://www.kino-teatr.ru/video/27135/start.jpg',
-    'https://www.film.ru/sites/default/files/filefield_paths/demon-slayer-1q.jpg',
-    'https://2datyvyhoda.ru/wp-content/uploads/2023/04/Demon-Slayer-Swordsmith-Village-Arc-2023-S3-E1-4.jpg',
-    'https://avatars.dzeninfra.ru/get-zen_doc/1654267/pub_5d80ea0bfc69ab00ae919bda_5d80eeeb9c944600ad98c47f/scale_1200',
-    'https://agor.pw/img/kimetsu-no-yaiba-katanakaji-no-sato-hen/2.jpg',
+    'assets/images/daemons/1.jpg',
+    'assets/images/daemons/2.jpg',
+    'assets/images/daemons/3.jpeg',
+    'assets/images/daemons/4.jpg',
+    'assets/images/daemons/5.jpeg',
   ];
   public generateDaemon(title: string, solution: string, level: number) {
     const pic = (this.difficultyLevels as any).random();
